@@ -1,0 +1,11 @@
+{
+  "folders": [
+	{
+		"name": "gpt3",
+		"path": "../../.."
+	}
+],
+  "settings": {
+    "cSpell.words": ["whatgpt"]
+  }
+}
