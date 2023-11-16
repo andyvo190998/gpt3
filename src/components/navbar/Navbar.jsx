@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import './navbar.css';
 import logo from '../../assets/logo.svg';
+import SignUpModal from '../../modals/Signup-modal';
 
 const Menu = () => (
   <>
@@ -26,6 +27,19 @@ const Menu = () => (
 //Class name rule: BEM = Block Element modifier
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(true);
+  const [openSignUpModal, setOpenSignUpModal] = useState(false);
+  const handleOpenSignUpModal = (type) => {
+    if (type === 'signIn') {
+      setIsSignUp(false);
+    }
+    setOpenSignUpModal(true);
+  };
+  const handleCloseSignUpModal = () => {
+    setOpenSignUpModal(false);
+
+    setIsSignUp(true);
+  };
   return (
     <div className="gpt3__navbar">
       <div className="gpt3__navbar-links">
@@ -37,8 +51,10 @@ const Navbar = () => {
         </div>
       </div>
       <div className="gpt3__navbar-sign">
-        <p>Sign in</p>
-        <button type="button">Sign up</button>
+        <p onClick={() => handleOpenSignUpModal('signIn')}>Sign in</p>
+        <button onClick={() => handleOpenSignUpModal('signUp')} type="button">
+          Sign up
+        </button>
       </div>
       <div className="gpt3__navbar-menu">
         {toggleMenu ? (
@@ -61,11 +77,19 @@ const Navbar = () => {
             </div>
             <div className="gpt3__navbar-menu_container-links-sign">
               <p>Sign in</p>
-              <button type="button">Sign up</button>
+              <button onClick={handleOpenSignUpModal} type="button">
+                Sign up
+              </button>
             </div>
           </div>
         )}
       </div>
+      <SignUpModal
+        open={openSignUpModal}
+        handleClose={handleCloseSignUpModal}
+        isSignUp={isSignUp}
+        setIsSignUp={setIsSignUp}
+      />
     </div>
   );
 };
